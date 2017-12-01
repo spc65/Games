@@ -1,0 +1,40 @@
+
+body{
+  background-color: #F1F1F1;
+  height: 100vh;
+}
+
+.indexGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 20vh 40vh;
+  grid-gap: 20vh;
+  text-align: center;
+  background-color: #F1F1F1;
+
+  height: 94%;
+}
+.login_and_signup{
+  background-color: white;
+  box-shadow: 1px 1px 10px #AAAAAA;
+  font-size: 2em;
+  display : flex;
+  align-items : center;
+  text-align: center;
+}
+.login_and_signup:hover{
+  box-shadow: 3px 3px 30px #AAAAAA;
+  cursor:pointer;
+}
+span{
+  text-align: center;
+  width:100%;
+}
+.login{
+  grid-column: 1;
+
+}
+
+.signup{
+  grid-column: 2;
+}

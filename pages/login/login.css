@@ -1,0 +1,20 @@
+
+body{
+  background-color: #F1F1F1;
+  height: 100vh;
+}
+.loginGrid{
+  height:94%;
+
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+
+}
+.middle{
+  grid-column: 3;
+  display : flex;
+  align-items : center;
+}
+.valign{
+    width:100%;
+}
