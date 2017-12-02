@@ -15,14 +15,14 @@
   ?>
 
     <div class="indexGrid">
-      <div class="login login_and_signup">
+
+      <div class="login login_and_signup" onclick="window.location.href = '../login/login.php';">
         <span>Login</span>
       </div>
-      <div class ="signup login_and_signup">
+      <div class ="signup login_and_signup" onclick="window.location.href = '../signup/signup.php';">
         <span>Signup</span>
       </div>
     </div>
-
 
 
 
