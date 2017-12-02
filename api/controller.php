@@ -27,12 +27,16 @@ if(isset($_GET["type"])){
     return $theDBA->unflagAll();
   }
 }
-if(isset($_POST["new_name"]) && isset($_POST["new_password"])){
-  if($theDBA->register($_POST["new_name"], $_POST["new_password"]) == "uae"){
-    header('Location: register.php?error=user already exists');
+#if(isset($_POST["new_name"]) && isset($_POST["new_password"])){
+function insertNewUser($username, $password, $email){
+  if($theDBA->register($username, $password, $email) == "uae"){
+    header('Location: ../pages/signup/signup.php?error=user already exists');
     die();
   }else{
-    header('Location: index.php');
+    $theDBA->login($username, $password);
+    session_start();
+    $_SESSION['username'] = $username;
+    header('Location: ../pages/account/account.php');
     die();
   }
 }

@@ -18,25 +18,7 @@ class DataBaseAdaptor {
     }
   }
 
-  public function getQuotesAsArray() {
-    $stmt = $this->DB->prepare( "SELECT * FROM quotations WHERE flagged LIKE '0' ORDER BY rating DESC;");
-    $stmt->execute();
-    return $stmt->fetchAll( PDO::FETCH_ASSOC );
-  }
-  public function upVote($id){
-    $stmt = $this->DB->prepare("UPDATE quotations SET rating = rating + 1 WHERE id = ".$id.";");
-    $stmt->execute();
-  }
-  public function downVote($id){
-    $stmt = $this->DB->prepare( "UPDATE quotations SET rating = rating - 1 WHERE id = ".$id.";");
-    $stmt->execute();
-    return $stmt->fetchAll( PDO::FETCH_ASSOC );
-  }
-  public function flag($id){
-    $stmt = $this->DB->prepare( "UPDATE quotations SET flagged = 1 WHERE id = ".$id.";");
-    $stmt->execute();
-  }
-  public function register($username, $password){
+  public function register($username, $password, $email){
     $stmt = $this->DB->prepare( "SELECT * FROM users WHERE username='".$username."';");
     $stmt->execute();
     $users = $stmt->fetchAll( PDO::FETCH_ASSOC );
@@ -61,15 +43,7 @@ class DataBaseAdaptor {
       return "incorrect password";
     }
   }
-  public function newQuote($quote,$author){
-    $stmt = $this->DB->prepare("INSERT INTO quotations(added,quote,author,rating,flagged) VALUES(NOW(),'".$quote."','".$author."',0,0);");
-    $stmt->execute();
-  }
-  public function unflagAll(){
-    $stmt = $this->DB->prepare( "UPDATE quotations SET flagged = 0;");
-    $stmt->execute();
-    return "gh";
-  }
+
 }
 
 ?>

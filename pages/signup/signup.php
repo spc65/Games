@@ -19,8 +19,8 @@
 	<div class="col-sm-4"></div>
 
 	<div class="col-sm-4 well" ng-app="signup" ng-controller="signupctrl">
-		<form ng-form-commit method="post" action="sign-up.php" name="newUserForm">
-			<h4>Create Account(not a secure connection)</h4>
+		<form ng-form-commit method="post" action="../../api/signup.php" name="newUserForm">
+			<h4>Create Account</h4>
 			<div class="form-group">
 				<label for="usr">Your name:</label>
 				<input type="text" class="form-control" id="usr" name="username" required>
