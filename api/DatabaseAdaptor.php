@@ -6,7 +6,7 @@ class DataBaseAdaptor {
   private $db;
 
   public function __construct(){
-    $db = 'mysql:dbname=quotes; charset=utf8; host=127.0.0.1';
+    $db = 'mysql:dbname=hangman; charset=utf8; host=127.0.0.1';
     $user = 'root';
     $password = '';
     try{
@@ -18,13 +18,14 @@ class DataBaseAdaptor {
     }
   }
 
-  public function register($username, $password, $email){
+  public function register($username, $password){
     $stmt = $this->DB->prepare( "SELECT * FROM users WHERE username='".$username."';");
     $stmt->execute();
     $users = $stmt->fetchAll( PDO::FETCH_ASSOC );
     if(count($users) > 0){
       return "uae";
     }
+    #$2y$10$r.MBLXzDunNgMZT0x2gyb.1b5lzNqMotOE8.ICrL1YTFpr/zEGB7.
     $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $this->DB->prepare("INSERT INTO users(username,hash) VALUES('".$username."','".$hashed_pwd."');");
     $stmt->execute();
@@ -36,7 +37,7 @@ class DataBaseAdaptor {
     if(count($users) == 0){
       return "username does not exist";
     }
-    //$hash = password_hash($password, PASSWORD_DEFAULT);
+    #$hash = password_hash($password, PASSWORD_DEFAULT);
     if(password_verify($password,$users[0]["hash"])){
       return $users[0]["username"];
     }else{
