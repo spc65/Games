@@ -21,15 +21,20 @@
 	<div class="col-sm-4 well" ng-app="signup" ng-controller="signupctrl">
 		<form ng-form-commit method="post" action="../../api/signup.php" name="newUserForm">
 			<h4>Create Account</h4>
+			<?php
+				if(isset($_GET["error"])){
+					echo '<p class="text-danger">'.$_GET["error"].'</p>';
+	      }
+			 ?>
 			<div class="form-group">
-				<label for="usr">Your name:</label>
+				<label for="usr">Username:</label>
 				<input type="text" class="form-control" id="usr" name="username" required>
 			</div>
-			<div ng-class="emailclass">
+			<!-- <div ng-class="emailclass">
 				<label for="pwd">Email:</label>
 				<input type="email" class="form-control" id="pwd" name="email" ng-model="email" required>
-				<p class="text-danger" ng-show="invalidEmail">Enter a valid email address</p>
-			</div>
+				<p class="text-danger" ng-if="invalidEmail">Enter a valid email address</p>
+			</div> -->
 			<div ng-class="password1class">
 				<label for="pwd">Password:</label>
 				<input type="password" class="form-control" id="pwd" name="password1" ng-model="password1" required>
@@ -38,7 +43,7 @@
 				<label>Re-enter password:</label>
 				<input type="password" class="form-control" name="password2" ng-model="password2" required>
 			</div>
-			<p class="text-danger" ng-show="passwordsDontMatch">Passwords must match</p>
+			<p class="text-danger" ng-if="passwordsDontMatch">Passwords must match</p>
 
 			<button type="button" ng-click="attempt(newUserForm)" class="btn btn-primary btn-block">Sign up</button>
 			<hr />

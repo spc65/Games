@@ -12,8 +12,8 @@
     		if(isset($_SESSION['username'])){
 
     			echo '
-        <div class="signuph navBtn"><a href="account.php"><span style="display:inline;" class="glyphicon glyphicon-user"></span>   Welcome   '.$_SESSION['username'].'</a></div>
-        <div class="loginh navBtn"><a href="logout.php"><span style="display:inline;" class="glyphicon glyphicon-log-in"></span> Logout</a></div>
+        <div class="signuph navBtn"><a href="../account/account.php"><span style="display:inline;" class="glyphicon glyphicon-user"></span>   Welcome   '.$_SESSION['username'].'</a></div>
+        <div class="loginh navBtn"><a href="../../api/logout.php"><span style="display:inline;" class="glyphicon glyphicon-log-in"></span> Logout</a></div>
     					';
     		}else{
     			echo '
