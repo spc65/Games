@@ -27,7 +27,7 @@ class DatabaseAdaptor {
 									acceptor_id, word, num_mistakes, over, won)
 									VALUES (" . $ch_id . ', ' . $a_id . ', ' . $word, . ', 0, FALSE, 0);');
 		$stmt->execute();
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		//return $stmt->fetchAll(PDO::FETCH_ASSOC);	<-----DON'T NEED TO RETURN ANYTHING------
 	}
 
 	// Returns the word progress in the given game.
@@ -61,6 +61,21 @@ class DatabaseAdaptor {
 
 		// Return the word progress
 		return $result;
+	}
+
+	// Returns the number of lives the player has given
+	// the game id provided by the client.
+	public function getLives($gameid) {
+
+		// Query the db
+		$stmt = $this->DB->prepare("SELECT num_mistakes FROM game WHERE game_id = " . $gameid);
+		$stmt->execute();
+
+		// Grab the results of the query
+		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		// Return the number of lives the player has left
+		return 6 - $results['num_mistakes'];
 	}
 
 	// Adds the desired letter to the game's
@@ -133,6 +148,8 @@ class DatabaseAdaptor {
 
 // Here is our database
 $theDBA = new DatabaseAdaptor();
+
+
 
 
 
