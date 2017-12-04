@@ -44,6 +44,21 @@ class DataBaseAdaptor {
       return "incorrect password";
     }
   }
+  function createGame($ch, $a, $word) {
+    $ch_id = $ch;
+    if($ch != "NULL"){// retrive users id by name
+      $stmt = $this->DB->prepare( "SELECT * FROM users WHERE username='".$ch."';");
+      $stmt->execute();
+      $ch_id = $stmt->fetchAll( PDO::FETCH_ASSOC )[0]["id"];
+    }
+    // retrive users id by name
+    $stmt = $this->DB->prepare( "SELECT id FROM users WHERE username='".$a."';");
+    $stmt->execute();
+    $a_id = $stmt->fetchAll( PDO::FETCH_ASSOC )[0]["id"];
+    $stmt = $this->DB->prepare("INSERT INTO game(challenger_id,acceptor_id, word, num_mistakes, letters_used, over, won) VALUES(".$ch_id.', '.$a_id.", '".$word."', 0,'', FALSE, 0);");
+    $stmt->execute();
+    return $this->DB->lastInsertId();
+  }
 
 }
 

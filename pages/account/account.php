@@ -16,7 +16,7 @@
 	<div class="accountGrid">
 		<div class="playNow accountBox center">
 			<div class="expand">
-				<button type="button" class="btn btn-danger playBtn">Play now</button>
+				<button type="button" class="btn btn-danger playBtn" onclick="window.location.href = '../../api/single_player.php';">Play now</button>
 			</div>
 		</div>
 		<div class="privateGame accountBox">
