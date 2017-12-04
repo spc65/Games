@@ -19,7 +19,7 @@
 				<button type="button" class="btn btn-danger playBtn" onclick="window.location.href = '../../api/single_player.php';">Play now</button>
 			</div>
 		</div>
-		<div class="privateGame accountBox">
+		<!-- <div class="privateGame accountBox">
 			<div class="expand">
 				<div class="centerText title">Private Game</div>
 				<hr>
@@ -35,7 +35,7 @@
 				Start a private game<br><br>
 				<button type="button" class="btn btn-success btn-block">create game</button>
 			</div>
-		</div>
+		</div> -->
 		<div class="existingGames accountBox">
 			<div class="expand">
 				<div class="centerText title">Existing Game</div>
@@ -53,7 +53,8 @@
 			      <tr ng-repeat="x in existingGames">
 			        <td>{{x.progress}}</td>
 			        <td>{{x.challenger_id}}</td>
-			        <td><button type="button" class="btn btn-danger btn-xs">Play</button></td>
+			        <!-- <td><button type="button" class="btn btn-danger btn-xs" ng-click="window.location.href = '../play/play.php?id={{x.game_id}}';">Play</button></td> -->
+							<td><a class="btn btn-danger btn-xs" href="../play/play.php?id={{x.game_id}}">Play</a></td>
 			      </tr>
 			  </table>
 			</div>

@@ -68,22 +68,14 @@ function getGames($username) {
   return $theDBA->getGames($username);
 }
 
-// Returns the word progress in the given game.
+function getWord($gameid) {
+  $theDBA = new DataBaseAdaptor();
+  return $theDBA->getWord($gameid);
+}
 
-
-// Returns the number of lives the player has given
-// the game id provided by the client.
 function getLives($gameid) {
-
-  // Query the db
-  $stmt = $this->DB->prepare("SELECT num_mistakes FROM game WHERE game_id = " . $gameid);
-  $stmt->execute();
-
-  // Grab the results of the query
-  $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-  // Return the number of lives the player has left
-  return 6 - $results['num_mistakes'];
+  $theDBA = new DataBaseAdaptor();
+  return $theDBA->getLives($gameid);
 }
 
 // Adds the desired letter to the game's
@@ -154,10 +146,6 @@ function guess($gameid, $letter) {
 }
 
 
-// if(isset($_POST["author"]) && isset($_POST["quote"])){
-//     $theDBA->newQuote($_POST["quote"], $_POST["author"]);
-//     header('Location: index.php');
-//     die();
-// }
+
 
 ?>

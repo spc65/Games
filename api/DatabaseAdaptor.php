@@ -65,7 +65,7 @@ class DataBaseAdaptor {
     $stmt = $this->DB->prepare("SELECT word, letters_used FROM game WHERE game_id = ".$gameId.';');
     $stmt->execute();
     // Get the word and the letters used so far
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
     $word = $results['word'];
     $letters = $results['letters_used'];
     $result = '';
@@ -101,7 +101,7 @@ class DataBaseAdaptor {
           $result .= '-';
         }
       }
-      $outp .= '{"id":"'.$rs["game_id"].'",';
+      $outp .= '{"game_id":"'.$rs["game_id"].'",';
       $outp .= '"challenger_id":'.(($rs["challenger_id"] === NULL)? '"single player"':$rs["challenger_id"]).',';
       $outp .= '"progress":"'.$result.'"}';
     }
@@ -109,6 +109,18 @@ class DataBaseAdaptor {
     $outp ='{"games":['.$outp.']}';
     //$outp ='{"data":['.print_r($stmt->fetchAll(PDO::FETCH_ASSOC)).']}';
     return $outp;
+  }
+
+  // Returns the number of lives the player has given
+  // the game id provided by the client.
+  function getLives($gameid) {
+    // Query the db
+    $stmt = $this->DB->prepare("SELECT num_mistakes FROM game WHERE game_id = " . $gameid);
+    $stmt->execute();
+    // Grab the results of the query
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+    // Return the number of lives the player has left
+    return 6 - $results['num_mistakes'];
   }
 }
 

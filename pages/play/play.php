@@ -6,16 +6,20 @@
 <title>Hangman!</title>
 </head>
 <body ng-app="hangman" ng-controller="hangmanCtrl">
+  <div id="game_id" style="display: none;"><?php
+        $output = $_GET["id"];
+        echo htmlspecialchars($output);
+    ?></div>
   <div class="board">
     <div class="state box">
+      Lives Left<br>
+      {{lives}}
     </div>
     <div class="letters box">
         <button ng-repeat="letter in letters" class="letter"> {{letter}} </button>
     </div>
     <div class="words box">
-      <ul>
-        <li ng-repeat="word in words track by $index"> {{ word }} </li>
-      </ul>
+      {{ word }}
     </div>
   </div>
 <script type="text/javascript" src="play.js"></script>

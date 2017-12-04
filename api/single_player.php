@@ -8,8 +8,4 @@
   if(isset($_SESSION['username'])){
     createGame("NULL",$_SESSION['username'],$word);
   }
-
-
-
-
 ?>
