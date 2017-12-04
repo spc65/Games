@@ -78,71 +78,9 @@ function getLives($gameid) {
   return $theDBA->getLives($gameid);
 }
 
-// Adds the desired letter to the game's
-// list of used letters and updates the
-// number of mistakes made in the game,
-// and determines if the game was won, lost,
-// or is continuing.
 function guess($gameid, $letter) {
-
-  // Add the letter to the list of used letters
-  $stmt = $this->DB->prepare("UPDATE game SET letters_used = letters_used + " . "'" . $letter . "' WHERE game_id = " . $gameid . ";");
-  $stmt->execute();
-
-  // Was this a mistake? Get the word and the letters used to find out.
-  $stmt2 = $this->DB->prepare("SELECT word, letters_used FROM game WHERE game_id =" . $gameid);
-  $stmt2->execute();
-  $results = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-  $word = $results['word'];
-  $letters = $results['letters_used'];
-
-  // If the letter is not found in the word
-  if (strpos($word, $letter) == FALSE) {
-
-    // Vars
-    $stmt3 = $this->DB->prepare("UPDATE game SET num_mistakes = num_mistakes + 1 WHERE game_id = " . $gameid);
-
-    // Did we lose? Need 6 mistakes to lose
-    if ($results['num_mistakes'] == 5) {
-
-      $stmt3 = $this->DB->prepare("UPDATE game SET num_mistakes = num_mistakes + 1, won = 0, over = 1 WHERE game_id = " . $gameid);
-    }
-
-    $stmt3->execute();
-  }
-
-  // Need to find out if we won
-  else {
-
-    $result = '';
-
-    // Let's determine the player's word progress
-    for ($i = 0; $i < strlen($word); $i++) {
-
-      // Did they use this letter?
-      if (strpos($letters, $word[$i])) {
-
-        $result .= $word[$i];
-      }
-
-      // Blank
-      else {
-
-        $result .= '-';
-      }
-    }
-
-    // Do we have any dashes?
-    if (strpos($word, '-') == FALSE) {
-
-      // Ding ding ding! You win!
-      $stmt4 = $this->DB->prepare("UPDATE game SET won = 1, over = 1 WHERE game_id = ". $gameid);
-      $stmt4->execute();
-    }
-  }
-
-  // Return the word progress
-  return getWord($gameid);
+  $theDBA = new DataBaseAdaptor();
+  return $theDBA->guess($gameid,$letter);
 }
 
 

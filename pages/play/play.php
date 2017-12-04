@@ -16,7 +16,7 @@
       {{lives}}
     </div>
     <div class="letters box">
-        <button ng-repeat="letter in letters" class="letter"> {{letter}} </button>
+        <button ng-repeat="letter in letters" class="letter" ng-click="guess(letter)"> {{letter}} </button>
     </div>
     <div class="words box">
       {{ word }}
