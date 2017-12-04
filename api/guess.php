@@ -4,8 +4,7 @@
 	include 'controller.php';
   $gameid = $_GET["id"];
   $letter = $_GET["letter"];
-  echo $letter;
-  echo $gameid;
+
   guess($gameid,$letter);
   echo '{"word":"'.getWord($gameid).'","lives":"'.getLives($gameid).'"}';
 ?>

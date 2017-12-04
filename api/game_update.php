@@ -5,5 +5,5 @@
   $gameid = $_GET["id"];
   // echo $gameid;
   // echo $gameid;
-  echo '{"word":"'.getWord($gameid).'","lives":"'.getLives($gameid).'"}';
+  echo '{"word":"'.getWord($gameid).'","lives":"'.getLives($gameid).'","letters_used":"'.getLettersUsed($gameid).'"}';
 ?>

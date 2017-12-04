@@ -78,6 +78,11 @@ function getLives($gameid) {
   return $theDBA->getLives($gameid);
 }
 
+function getLettersUsed($gameid) {
+  $theDBA = new DataBaseAdaptor();
+  return $theDBA->getLettersUsed($gameid);
+}
+
 function guess($gameid, $letter) {
   $theDBA = new DataBaseAdaptor();
   return $theDBA->guess($gameid,$letter);

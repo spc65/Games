@@ -72,7 +72,7 @@ class DataBaseAdaptor {
     // Let's determine the player's word progress
     for ($i = 0; $i < strlen($word); $i++) {
       // Did they use this letter?
-      if (strpos($letters, $word[$i])) {
+      if (strpos($letters, $word[$i]) !== false || strpos(strtolower($letters), $word[$i]) !== false) {
         $result .= $word[$i];
       }else {// Blank
         $result .= '-';
@@ -82,9 +82,17 @@ class DataBaseAdaptor {
     return $result;
   }
 
+  function getLettersUsed($gameId) {
+    $stmt = $this->DB->prepare("SELECT letters_used FROM game WHERE game_id = ".$gameId.';');
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+    $letters = $results['letters_used'];
+    return $letters;
+  }
+
   function getGames($username) {
     // Format our query and execute it
-    $stmt = $this->DB->prepare("SELECT game_id, challenger_id, word, letters_used FROM game;");
+    $stmt = $this->DB->prepare("SELECT * FROM game INNER JOIN users ON users.id=game.acceptor_id WHERE username='".$username."' ;");
     $stmt->execute();
     $outp = "";
     $all = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -95,7 +103,7 @@ class DataBaseAdaptor {
       $letters = $rs['letters_used'];
       $result = '';
       for ($i = 0; $i < strlen($word); $i++) {
-        if (strpos($letters, $word[$i])) {
+        if (strpos($letters, $word[$i]) !== false || strpos(strtolower($letters), $word[$i]) !== false) {
           $result .= $word[$i];
         }else {// Blank
           $result .= '-';
@@ -103,6 +111,9 @@ class DataBaseAdaptor {
       }
       $outp .= '{"game_id":"'.$rs["game_id"].'",';
       $outp .= '"challenger_id":'.(($rs["challenger_id"] === NULL)? '"single player"':$rs["challenger_id"]).',';
+      $outp .= '"mistakes":'.$rs["num_mistakes"].',';
+      $outp .= '"over":'.$rs["over"].',';
+      $outp .= '"won":'.$rs["won"].',';
       $outp .= '"progress":"'.$result.'"}';
     }
     //$outp ='{"hits":'.$hits.',"foods":['.$outp.']}';
@@ -129,7 +140,7 @@ class DataBaseAdaptor {
   // or is continuing.
   function guess($gameid, $letter) {
     // Add the letter to the list of used letters
-    $stmt = $this->DB->prepare("UPDATE game SET letters_used = letters_used + '" . $letter . "' WHERE game_id = " . $gameid . ";");
+    $stmt = $this->DB->prepare("UPDATE game SET letters_used = CONCAT(letters_used,'" . $letter . "') WHERE game_id = " . $gameid . ";");
     $stmt->execute();
     // Was this a mistake? Get the word and the letters used to find out.
     $stmt2 = $this->DB->prepare("SELECT word, letters_used, num_mistakes FROM game WHERE game_id =" . $gameid);
@@ -138,7 +149,7 @@ class DataBaseAdaptor {
     $word = $results['word'];
     $letters = $results['letters_used'];
     // If the letter is not found in the word
-    if (strpos($word, $letter) == FALSE) {
+    if (strpos($word,$letter) === false && strpos( $word, strtolower($letter)) === false) {
       // Vars
       $stmt3 = $this->DB->prepare("UPDATE game SET num_mistakes = num_mistakes + 1 WHERE game_id = " . $gameid);
       // Did we lose? Need 6 mistakes to lose
@@ -153,7 +164,7 @@ class DataBaseAdaptor {
       // Let's determine the player's word progress
       for ($i = 0; $i < strlen($word); $i++) {
         // Did they use this letter?
-        if (strpos($letters, $word[$i])) {
+        if (strpos($letters, $word[$i]) !== false || strpos(strtolower($letters), $word[$i]) !== false) {
           $result .= $word[$i];
         }
         // Blank
@@ -162,7 +173,7 @@ class DataBaseAdaptor {
         }
       }
       // Do we have any dashes?
-      if (strpos($word, '-') == FALSE) {
+      if (strpos($result, '-') === FALSE) {
         // Ding ding ding! You win!
         $stmt4 = $this->DB->prepare("UPDATE game SET won = 1, over = 1 WHERE game_id = ". $gameid);
         $stmt4->execute();
@@ -170,6 +181,7 @@ class DataBaseAdaptor {
     }
     // Return the word progress
     //return getWord($gameid);
+
   }
 }
 
