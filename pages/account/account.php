@@ -41,9 +41,21 @@
 				<div class="centerText title">Existing Game</div>
 				<hr>
 				<br>
-				<div class="list-group">
-  				<a ng-repeat="x in existingGames" href="#" class="list-group-item">{{x.player}}</a>
-				</div>
+				<table class="table table-hover">
+			    <thead>
+			      <tr>
+			        <th>Progress</th>
+			        <th>Challenger</th>
+			        <th>Play</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr ng-repeat="x in existingGames">
+			        <td>{{x.progress}}</td>
+			        <td>{{x.challenger_id}}</td>
+			        <td><button type="button" class="btn btn-danger btn-xs">Play</button></td>
+			      </tr>
+			  </table>
 			</div>
 		</div>
 		<div class="friendsList accountBox">

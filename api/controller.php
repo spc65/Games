@@ -63,37 +63,13 @@ function createGame($ch, $a, $word) {
   die();
 }
 
-// Returns the word progress in the given game.
-function getWord($gameId) {
-  // Format our query and execute it
-  $stmt = $this->DB->prepare("SELECT word, letters_used FROM game WHERE game_id = " . $gameId . ';');
-  $stmt->execute();
-
-  // Get the word and the letters used so far
-  $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  $word = $results['word'];
-  $letters = $results['letters_used'];
-  $result = '';
-
-  // Let's determine the player's word progress
-  for ($i = 0; $i < strlen($word); $i++) {
-
-    // Did they use this letter?
-    if (strpos($letters, $word[$i])) {
-
-      $result .= $word[$i];
-    }
-
-    // Blank
-    else {
-
-      $result .= '-';
-    }
-  }
-
-  // Return the word progress
-  return $result;
+function getGames($username) {
+  $theDBA = new DataBaseAdaptor();
+  return $theDBA->getGames($username);
 }
+
+// Returns the word progress in the given game.
+
 
 // Returns the number of lives the player has given
 // the game id provided by the client.

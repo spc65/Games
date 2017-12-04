@@ -60,6 +60,56 @@ class DataBaseAdaptor {
     return $this->DB->lastInsertId();
   }
 
+  function getWord($gameId) {
+    // Format our query and execute it
+    $stmt = $this->DB->prepare("SELECT word, letters_used FROM game WHERE game_id = ".$gameId.';');
+    $stmt->execute();
+    // Get the word and the letters used so far
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $word = $results['word'];
+    $letters = $results['letters_used'];
+    $result = '';
+    // Let's determine the player's word progress
+    for ($i = 0; $i < strlen($word); $i++) {
+      // Did they use this letter?
+      if (strpos($letters, $word[$i])) {
+        $result .= $word[$i];
+      }else {// Blank
+        $result .= '-';
+      }
+    }
+    // Return the word progress
+    return $result;
+  }
+
+  function getGames($username) {
+    // Format our query and execute it
+    $stmt = $this->DB->prepare("SELECT game_id, challenger_id, word, letters_used FROM game;");
+    $stmt->execute();
+    $outp = "";
+    $all = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($all as $rs) {
+      if ($outp != "") {$outp .= ",";}
+      $word = $rs['word'];
+      $letters = $rs['letters_used'];
+      $result = '';
+      for ($i = 0; $i < strlen($word); $i++) {
+        if (strpos($letters, $word[$i])) {
+          $result .= $word[$i];
+        }else {// Blank
+          $result .= '-';
+        }
+      }
+      $outp .= '{"id":"'.$rs["game_id"].'",';
+      $outp .= '"challenger_id":'.(($rs["challenger_id"] === NULL)? '"single player"':$rs["challenger_id"]).',';
+      $outp .= '"progress":"'.$result.'"}';
+    }
+    //$outp ='{"hits":'.$hits.',"foods":['.$outp.']}';
+    $outp ='{"games":['.$outp.']}';
+    //$outp ='{"data":['.print_r($stmt->fetchAll(PDO::FETCH_ASSOC)).']}';
+    return $outp;
+  }
 }
 
 ?>
