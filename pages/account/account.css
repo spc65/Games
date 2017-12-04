@@ -1,0 +1,55 @@
+body{
+  height: 100vh;
+}
+
+.accountGrid{
+  display: grid;
+  grid-template-columns: repeat(9,1fr);
+  grid-template-rows: repeat(9,1fr);
+  grid-gap:20px;
+  padding:20px;
+  background-color: #F1F1F1;
+  height: 94%;
+}
+.accountBox{
+  background-color: white;
+  box-shadow: 1px 1px 10px #AAAAAA;
+}
+.title{
+  font-size: 2em;
+}
+.center{
+  display : flex;
+  align-items : center;
+  text-align: center;
+}
+.centerText{
+  text-align: center;
+}
+.expand{
+  width:100%;
+}
+.playNow{
+  grid-column: 1/10;
+  grid-row: 1;
+  padding:5px;
+}
+.privateGame{
+  grid-column: 1/4;
+  grid-row: 2/10;
+  padding:20px;
+}
+.existingGames{
+  grid-column: 4/7;
+  grid-row: 2/10;
+  padding:20px;
+}
+.friendsList{
+  grid-column: 7/10;
+  grid-row: 2/10;
+  padding:20px;
+}
+.playBtn{
+  width:25vw;
+  font-size: 2em !important;
+}
