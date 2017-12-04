@@ -7,6 +7,9 @@ app.controller('hangmanCtrl', function($scope,$http) {
   $scope.won = 0;
   $scope.letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
   $scope.used_letters = [];
+  $scope.lettersClass = "letters box";
+  // $scope.isOver = false;
+  $scope.correctWord = "";
   $http.get("../../api/game_update.php?id="+$scope.gameid).then(function(response) {
     console.log(response.data);
     var letters_used = response.data.letters_used;
@@ -34,11 +37,20 @@ app.controller('hangmanCtrl', function($scope,$http) {
       $scope.word = response.data.word;
       $scope.lives = response.data.lives;
       $scope.won = response.data.did_win;
+      if($scope.lives == 0 || $scope.won == 1){
+        console.log($scope.won);
+        console.log($scope.lives);
+        $scope.letters = [];
+        $scope.getCorrectWord();
+      }
     });
-    if($scope.lives == 0 || $scope.won == 1){
-      console.log($scope.won);
-      console.log($scope.lives);
-      $scope.letters = [];
-    }
+  }
+
+  $scope.getCorrectWord = function(){
+    $http.get("../../api/get_word.php?id="+$scope.gameid).then(function(response) {
+      console.log(response.data);
+      $scope.correctWord = response.data.word;
+      $scope.lettersClass = "lettersCentered box";
+    });
   }
 });

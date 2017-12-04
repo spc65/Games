@@ -37,6 +37,16 @@ body{
   grid-gap:15px;
   padding:15px;
 }
+.lettersCentered{
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  overflow-y: auto;
+  display : flex;
+  align-items : center;
+  text-align: center;
+}
+
+
 .used_letters{
   grid-column: 2 / 3;
   grid-row: 2 / 3;

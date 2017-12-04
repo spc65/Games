@@ -57,9 +57,9 @@
 			        <td>{{x.challenger_id}}</td>
 			        <!-- <td><button type="button" class="btn btn-danger btn-xs" ng-click="window.location.href = '../play/play.php?id={{x.game_id}}';">Play</button></td> -->
 							<td>
-								<a ng-if="x.over == 0" class="btn btn-primary btn-xs btn-block" href="../play/play.php?id={{x.game_id}}">Play</a>
+								<a ng-if="x.over == 0" class="btn btn-danger btn-xs btn-block" href="../play/play.php?id={{x.game_id}}">Play</a>
 								<span ng-if="x.over == 1 && x.won == 1" class="btn btn-success btn-xs">You won</span>
-								<span ng-if="x.over == 1 && x.won == 0" class="btn btn-danger btn-xs">You lost</span>
+								<span ng-if="x.over == 1 && x.won == 0" class="btn btn-primary btn-xs">You lost</span>
 							</td>
 			      </tr>
 			  </table>
@@ -71,7 +71,30 @@
 				<hr>
 				<br>
 				<div class="list-group">
-					<a ng-repeat="x in friends" href="#" class="list-group-item">{{x.player}}</a>
+					<table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Username</th>
+								<th>Word</th>
+				        <th>Send</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr ng-repeat="x in friends">
+				        <td>{{x.player}}</td>
+								<td><input type="text" class="form-control" id="usr" ng-model="x.wordTo"></td>
+				        <td><button class="btn btn-success btn-md" ng-click="send(x)">send</button></td>
+				      </tr>
+				  </table>
+
+					<!-- <a  href="#" class="list-group-item">{{x.player}}</a> -->
+					<hr>
+					<div class="form-group">
+					  <label for="usr">username:</label>
+					  <input type="text" class="form-control" id="usr" ng-model="friendsName">
+					</div>
+					<button class="btn btn-success btn-block" ng-click="addFriend()">Add Friend</button>
+					<p class="text-danger">{{error}}</p>
 				</div>
 			</div>
 		</div>

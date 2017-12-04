@@ -20,11 +20,11 @@
     <div class="state box">
       <div class="center">
         <div class="lives">
-          <div ng-if="lives > 0">
+          <div ng-if="lives > 0 && won == 0">
             Lives Left<br>
             {{lives}}
           </div>
-          <div ng-if="lives == 0 && won == 1">
+          <div ng-if="won == 1">
             Game over<br>
             You won!
           </div>
@@ -35,11 +35,17 @@
         </div>
       </div>
     </div>
-    <div class="letters box">
-        <button ng-repeat="letter in letters" class="letter" ng-click="guess(letter)"> {{letter}} </button>
+    <div ng-class="lettersClass">
+        <button ng-if="correctWord == ''" ng-repeat="letter in letters" class="letter" ng-click="guess(letter)"> {{letter}} </button>
+				<div ng-if="correctWord != ''" class="center">
+					<div class="lives">
+						Correct word<br>
+						{{correctWord}}
+					</div>
+				</div>
     </div>
     <div class="used_letters box">
-      <button ng-if="word.toLowerCase().indexOf(letter.toLowerCase()) > -1" ng-repeat="letter in used_letters" class="letter correct">{{letter}}</button>      
+      <button ng-if="word.toLowerCase().indexOf(letter.toLowerCase()) > -1" ng-repeat="letter in used_letters" class="letter correct">{{letter}}</button>
       <button ng-if="word.toLowerCase().indexOf(letter.toLowerCase()) == -1" ng-repeat="letter in used_letters" class="letter incorrect">{{letter}}</button>
     </div>
     <div class="words box">

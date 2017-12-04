@@ -59,8 +59,15 @@ function loginUser($username,$password){
 function createGame($ch, $a, $word) {
   $theDBA = new DataBaseAdaptor();
   $game_id = $theDBA->createGame($ch, $a, $word);
-  header('Location: ../pages/play/play.php?id='.$game_id);
-  die();
+  if($ch == "NULL"){
+    header('Location: ../pages/play/play.php?id='.$game_id);
+    die();
+  }
+}
+
+function addFriend($username,$friendsName) {
+  $theDBA = new DataBaseAdaptor();
+  return $theDBA->addFriend($username,$friendsName);
 }
 
 function getGames($username) {
@@ -68,9 +75,19 @@ function getGames($username) {
   return $theDBA->getGames($username);
 }
 
+function getFriends($username) {
+  $theDBA = new DataBaseAdaptor();
+  return $theDBA->getFriends($username);
+}
+
 function getWord($gameid) {
   $theDBA = new DataBaseAdaptor();
   return $theDBA->getWord($gameid);
+}
+
+function getCorrectWord($gameid) {
+  $theDBA = new DataBaseAdaptor();
+  return $theDBA->getCorrectWord($gameid);
 }
 
 function getLives($gameid) {
