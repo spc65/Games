@@ -23,13 +23,14 @@ a:hover{
 .title{
   grid-column: 1/3;
   grid-row: 1;
+  
 }
 .loginh{
   grid-column: 9/11;
   /*grid-column: 11/12;*/
   grid-row: 1;
   text-align: right;
-  
+
 }
 .signuph{
   grid-column: 11/13;

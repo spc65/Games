@@ -6,5 +6,5 @@
   $letter = $_GET["letter"];
 
   guess($gameid,$letter);
-  echo '{"word":"'.getWord($gameid).'","lives":"'.getLives($gameid).'"}';
+  echo '{"word":"'.getWord($gameid).'","lives":"'.getLives($gameid).'","did_win":"'.didWin($gameid).'"}';
 ?>

@@ -88,6 +88,11 @@ function guess($gameid, $letter) {
   return $theDBA->guess($gameid,$letter);
 }
 
+function didWin($gameid) {
+  $theDBA = new DataBaseAdaptor();
+  return $theDBA->didWin($gameid);
+}
+
 
 
 

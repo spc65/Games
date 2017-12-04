@@ -90,6 +90,14 @@ class DataBaseAdaptor {
     return $letters;
   }
 
+  function didWin($gameId) {
+    $stmt = $this->DB->prepare("SELECT won FROM game WHERE game_id = ".$gameId.';');
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+    $won = $results['won'];
+    return $won;
+  }
+
   function getGames($username) {
     // Format our query and execute it
     $stmt = $this->DB->prepare("SELECT * FROM game INNER JOIN users ON users.id=game.acceptor_id WHERE username='".$username."' ;");
