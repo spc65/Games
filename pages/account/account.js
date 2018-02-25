@@ -1,6 +1,6 @@
 var app = angular.module('account', []);
 
-app.controller('accountCtrl', function($scope, $http) {
+app.controller('accountCtrl', function($scope, $http,$interval) {
 
   $scope.existingGames = [{"player":"You have no existing games"}];
   $scope.friends = [{"player":"You have not added any friends yet."}];
@@ -15,13 +15,27 @@ app.controller('accountCtrl', function($scope, $http) {
     });
   }
   $scope.getFriends();
+
   $http.get("../../api/existing_games.php").then(function(response) {
     // console.log(response.data.games);
     console.log(response);
     if(response.data.games.length > 0){
       $scope.existingGames = response.data.games;
     }
-    });
+  });
+
+  $interval(function() {
+
+
+  $http.get("../../api/existing_games.php").then(function(response) {
+    // console.log(response.data.games);
+    console.log(response);
+    if(response.data.games.length > 0){
+      $scope.existingGames = response.data.games;
+    }
+  });
+
+}, 5000);
   $scope.friendsName = "";
   $scope.addFriend = function(){
     if($scope.friendsName != ""){

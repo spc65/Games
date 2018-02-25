@@ -38,7 +38,7 @@
 		</div> -->
 		<div class="existingGames accountBox">
 			<div class="expand">
-				<div class="centerText title">Existing Game</div>
+				<div class="centerText title">Existing Games</div>
 				<hr>
 				<br>
 				<table class="table table-hover">

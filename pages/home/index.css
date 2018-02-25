@@ -2,6 +2,7 @@
 body{
   background-color: #F1F1F1;
   height: 100vh;
+
 }
 
 .indexGrid{
@@ -11,7 +12,7 @@ body{
   grid-gap: 20vh;
   text-align: center;
   background-color: #F1F1F1;
-
+ 
   height: 94%;
 }
 .login_and_signup{
